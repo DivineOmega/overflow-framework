@@ -31,6 +31,26 @@ class Router
         return $route;
     }
 
+    public function get(string $uri, callable $callable): Route
+    {
+        return $this->addRoute('GET', $uri, $callable);
+    }
+
+    public function post(string $uri, callable $callable): Route
+    {
+        return $this->addRoute('POST', $uri, $callable);
+    }
+
+    public function patch(string $uri, callable $callable): Route
+    {
+        return $this->addRoute('PATCH', $uri, $callable);
+    }
+
+    public function delete(string $uri, callable $callable): Route
+    {
+        return $this->addRoute('DELETE', $uri, $callable);
+    }
+
     private function getMatchingRoute(Request $request)
     {
         foreach($this->routes as $route) {
@@ -50,6 +70,6 @@ class Router
             return new Response('Page not found', 404);
         }
 
-        return $route->getResponse();
+        return $route->getResponse($request);
     }
 }

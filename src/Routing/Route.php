@@ -32,8 +32,8 @@ class Route
 
     }
 
-    public function getResponse(): Response
+    public function getResponse(Request $request): Response
     {
-        return new Response(call_user_func($this->callable), 200);
+        return new Response(call_user_func($this->callable, $request), 200);
     }
 }
