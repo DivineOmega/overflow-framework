@@ -2,7 +2,6 @@
 
 namespace DivineOmega\OverflowFramework\Routing;
 
-use brandonshar\StackOverflowBuddy;
 use DivineOmega\OverflowFramework\Http\Request;
 use DivineOmega\OverflowFramework\Http\Response;
 
