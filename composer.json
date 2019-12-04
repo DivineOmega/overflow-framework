@@ -1,0 +1,21 @@
+{
+    "name": "divineomega/overflow-framework",
+    "description": "A PHP framework",
+    "type": "library",
+    "require": {
+        "php": ">=7.1",
+        "psy/psysh": "@stable"
+    },
+    "license": "LGPL-3.0-only",
+    "authors": [
+        {
+            "name": "Jordan Hall",
+            "email": "jordan@hall05.co.uk"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DivineOmega\\OverflowFramework\\": "src/"
+        }
+    }
+}
