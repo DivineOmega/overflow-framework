@@ -12,8 +12,8 @@ $router->get('/', function(Request $request) {
     return 'Homepage';
 });
 
-$router->get('/hello/(.*)', function(Request $request) {
-    return 'Hello';
+$router->get('/{greeting}/{name}', function(Request $request, $greeting, $name) {
+    return $greeting.' '.$name;
 });
 
 (new Application($router))->start();

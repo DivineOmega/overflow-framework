@@ -25,8 +25,8 @@ class Route
         }
 
         $pattern = $this->path;
-        $pattern = str_replace('/', '\\/', $pattern);
-        $pattern = '/'.$pattern.'/';
+        $pattern = preg_replace('/\/{(.*?)}/', '/(.*?)', $pattern);
+        $pattern = '#^'.$pattern.'$#';
 
         $result = preg_match($pattern, $request->getPathInfo(), $matches);
 
@@ -40,7 +40,28 @@ class Route
 
     public function getResponse(Request $request): Response
     {
-        $response = call_user_func($this->callable, $request);
+        $pattern = $this->path;
+        $pattern = preg_replace('/\/{(.*?)}/', '/(.*?)', $pattern);
+        $pattern = '#^'.$pattern.'$#';
+
+        $result = preg_match($pattern, $request->getPathInfo(), $matches);
+
+        preg_match_all('/{(.*?)}/', $this->path, $paramKeyMatches);
+
+        $paramKeys = isset($paramKeyMatches[1]) ? $paramKeyMatches[1] : [];
+        $paramValues = $matches;
+        unset($paramValues[0]);
+        $paramValues = array_values($paramValues);
+
+        $params = [
+            'request' => $request,
+        ];
+
+        foreach($paramKeys as $index => $paramKey) {
+            $params[$paramKey] = $paramValues[$index];
+        }
+
+        $response = call_user_func_array($this->callable, $params);
 
         if ($response instanceof Response) {
             return $response;
