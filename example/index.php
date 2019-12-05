@@ -7,8 +7,13 @@ use DivineOmega\OverflowFramework\Routing\Router;
 require_once __DIR__.'/../vendor/autoload.php';
 
 $router = new Router();
+
 $router->get('/', function(Request $request) {
-    return 'Hello '.$request->get('name');
+    return 'Homepage';
+});
+
+$router->get('/hello/(.*)', function(Request $request) {
+    return 'Hello';
 });
 
 (new Application($router))->start();

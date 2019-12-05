@@ -24,7 +24,13 @@ class Route
             return false;
         }
 
-        if ($this->path !== $request->getPathInfo()) {
+        $pattern = $this->path;
+        $pattern = str_replace('/', '\\/', $pattern);
+        $pattern = '/'.$pattern.'/';
+
+        $result = preg_match($pattern, $request->getPathInfo(), $matches);
+
+        if (!$result || $matches[0] != $request->getPathInfo()) {
             return false;
         }
 

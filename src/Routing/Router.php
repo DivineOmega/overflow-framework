@@ -19,36 +19,36 @@ class Router
         ]);
     }
 
-    public function addRoute(string $method, string $uri, callable $callable): Route
+    public function addRoute(string $method, string $path, callable $callable): Route
     {
         if (!$this->validateMethod($method)) {
             throw new \InvalidArgumentException('Invalid method.');
         }
 
-        $route = new Route($method, $uri, $callable);
+        $route = new Route($method, $path, $callable);
         $this->routes[] = $route;
 
         return $route;
     }
 
-    public function get(string $uri, callable $callable): Route
+    public function get(string $path, callable $callable): Route
     {
-        return $this->addRoute('GET', $uri, $callable);
+        return $this->addRoute('GET', $path, $callable);
     }
 
-    public function post(string $uri, callable $callable): Route
+    public function post(string $path, callable $callable): Route
     {
-        return $this->addRoute('POST', $uri, $callable);
+        return $this->addRoute('POST', $path, $callable);
     }
 
-    public function patch(string $uri, callable $callable): Route
+    public function patch(string $path, callable $callable): Route
     {
-        return $this->addRoute('PATCH', $uri, $callable);
+        return $this->addRoute('PATCH', $path, $callable);
     }
 
-    public function delete(string $uri, callable $callable): Route
+    public function delete(string $path, callable $callable): Route
     {
-        return $this->addRoute('DELETE', $uri, $callable);
+        return $this->addRoute('DELETE', $path, $callable);
     }
 
     private function getMatchingRoute(Request $request)
