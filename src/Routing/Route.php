@@ -44,7 +44,7 @@ class Route
         $pattern = preg_replace('/\/{(.*?)}/', '/(.*?)', $pattern);
         $pattern = '#^'.$pattern.'$#';
 
-        $result = preg_match($pattern, $request->getPathInfo(), $matches);
+        preg_match($pattern, $request->getPathInfo(), $matches);
 
         preg_match_all('/{(.*?)}/', $this->path, $paramKeyMatches);
 
