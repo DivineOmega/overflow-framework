@@ -17,10 +17,11 @@ class Application
 
     public function start()
     {
-        $request = Request::buildFromCurrentRequest();
+        $request = Request::createFromGlobals();
 
         $response = $this->router->route($request);
 
-        $response->output();
+        $response->prepare($request);
+        $response->send();
     }
 }

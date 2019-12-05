@@ -8,7 +8,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $router = new Router();
 $router->get('/', function(Request $request) {
-    return 'hello '.$request->data['name'];
+    return 'Hello '.$request->get('name');
 });
 
 (new Application($router))->start();

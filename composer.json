@@ -4,7 +4,8 @@
     "type": "library",
     "require": {
         "php": ">=7.1",
-        "psy/psysh": "@stable"
+        "psy/psysh": "@stable",
+        "symfony/http-foundation": "^5.0"
     },
     "license": "LGPL-3.0-only",
     "authors": [

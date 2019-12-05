@@ -8,23 +8,23 @@ use DivineOmega\OverflowFramework\Http\Response;
 class Route
 {
     private $method;
-    private $uri;
+    private $path;
     private $callable;
 
-    public function __construct(string $method, string $uri, callable $callable)
+    public function __construct(string $method, string $path, callable $callable)
     {
         $this->method = $method;
-        $this->uri = $uri;
+        $this->path = $path;
         $this->callable = $callable;
     }
 
     public function matches(Request $request)
     {
-        if ($this->method !== $request->method) {
+        if ($this->method !== $request->getMethod()) {
             return false;
         }
 
-        if ($this->uri !== $request->uri) {
+        if ($this->path !== $request->getPathInfo()) {
             return false;
         }
 
@@ -34,6 +34,12 @@ class Route
 
     public function getResponse(Request $request): Response
     {
-        return new Response(call_user_func($this->callable, $request), 200);
+        $response = call_user_func($this->callable, $request);
+
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+        return new Response($response, 200);
     }
 }
