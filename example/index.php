@@ -16,4 +16,8 @@ $router->get('/{greeting}/{name}', function(Request $request, $greeting, $name) 
     return $greeting.' '.$name;
 });
 
-(new Application($router))->start();
+(new Application())
+    ->setRouter($router)
+    ->setViewsDirectory(__DIR__.'/views/')
+    ->setCacheDirectory(__DIR__.'/cache/')
+    ->start();
